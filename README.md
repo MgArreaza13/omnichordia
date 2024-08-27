@@ -184,6 +184,7 @@ omnichordia
 │   │   │   └── ormconfig.ts
 │   │   ├── messaging
 │   │   └── persistence
+│   │       └── DatabaseConfig.ts
 │   ├── interfaces
 │   │   ├── http
 │   │   │   └── health-check.controller.ts
@@ -205,6 +206,7 @@ omnichordia
 │   └── unit
 │       └── health-check.use-case.test.ts
 └── tsconfig.json
+
 
 
 
