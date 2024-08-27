@@ -1,0 +1,31 @@
+# docker-compose.local.yml
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ../  # Cambiado al directorio raíz del proyecto
+      dockerfile: docker/Dockerfile
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    command: npm run dev:local # Usa el script adecuado según tu configuración
+    env_file:
+      - ../.env.local
+    volumes:
+      - ../src:/app/src
+      - ../package*.json:/app/package*.json
+      - ../tsconfig.json:/app/tsconfig.json
+      - ../.env.local:/app/.env.local
+      - /app/node_modules # Evita que se sobrescriban los node_modules dentro del contenedor
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14
+    env_file:
+      - ../.env.local
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:

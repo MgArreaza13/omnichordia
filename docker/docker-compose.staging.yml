@@ -1,0 +1,9 @@
+# docker-compose.staging.yml
+services:
+  app:
+    env_file:
+      - ../.env.staging
+
+  db:
+    env_file:
+      - ../.env.staging

@@ -1,0 +1,9 @@
+# docker-compose.qa.yml
+services:
+  app:
+    env_file:
+      - ../.env.qa
+
+  db:
+    env_file:
+      - ../.env.qa

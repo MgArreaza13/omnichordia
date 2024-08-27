@@ -1,0 +1,9 @@
+# docker-compose.dev.yml
+services:
+  app:
+    env_file:
+      - ../.env.dev
+
+  db:
+    env_file:
+      - ../.env.dev

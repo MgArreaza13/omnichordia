@@ -1,0 +1,59 @@
+{
+	"name": "my-microservice-project",
+	"version": "1.0.0",
+	"description": "Microservice project using TypeScript, hexagonal architecture, and best practices.",
+	"type": "module",
+	"scripts": {
+		"start": "node dist/index.js",
+		"build": "tsc",
+		"dev": "tsx src/index.ts",
+		"dev:local": "ENV=local tsx watch src/index.ts",
+		"lint": "eslint 'src/**/*.{ts,tsx}'",
+		"lint:fix": "eslint --fix 'src/**/*.{ts,tsx}'",
+		"prettier": "prettier --write 'src/**/*.{ts,tsx,json,md}'",
+		"test": "jest",
+		"test:unit": "jest --testPathPattern=unit",
+		"test:integration": "jest --testPathPattern=integration",
+		"test:e2e": "jest --testPathPattern=e2e"
+	},
+	"author": "Miguel Arreaza",
+	"license": "MIT",
+	"dependencies": {
+		"dotenv": "^16.4.5",
+		"express": "^4.19.2",
+		"pg": "^8.12.0",
+		"reflect-metadata": "^0.2.2",
+		"typeorm": "^0.3.20"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.25.2",
+		"@babel/preset-env": "^7.25.4",
+		"@babel/preset-typescript": "^7.24.7",
+		"@types/express": "^4.17.21",
+		"@types/jest": "^29.5.12",
+		"@types/node": "^22.5.0",
+		"@types/supertest": "^6.0.2",
+		"@typescript-eslint/eslint-plugin": "^8.2.0",
+		"@typescript-eslint/parser": "^8.2.0",
+		"babel-jest": "^29.7.0",
+		"eslint": "^9.9.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-prettier": "^5.2.1",
+		"jest": "^29.7.0",
+		"jest-cucumber": "^4.5.0",
+		"prettier": "^3.3.3",
+		"supertest": "^7.0.0",
+		"tsx": "^3.8.0",
+		"ts-jest": "^29.2.4",
+		"ts-node-dev": "^2.0.0",
+		"typescript": "^5.5.4"
+	},
+	"browserslist": "> 0.5%, last 2 versions, Firefox ESR, not dead",
+	"eslintConfig": {
+		"extends": [
+			"eslint:recommended",
+			"plugin:@typescript-eslint/recommended",
+			"prettier"
+		]
+	}
+}

@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",                          // Soporta lo último de JavaScript
+    "module": "ESNext",                          // Usa el sistema de módulos ES
+    "moduleResolution": "node",                  // Resuelve módulos como Node.js
+    "strict": true,                              // Habilita todas las verificaciones estrictas
+    "esModuleInterop": true,                     // Habilita importaciones que trabajan con CJS
+    "skipLibCheck": true,                        // Omite la verificación de las definiciones de tipo
+    "forceConsistentCasingInFileNames": true,    // Fuerza el uso consistente de minúsculas y mayúsculas en los nombres de archivo
+    "resolveJsonModule": true,                   // Permite la importación de módulos JSON
+    "baseUrl": "./",                             // Establece el baseUrl para módulos
+    "outDir": "dist",                            // Directorio de salida de los archivos compilados
+    "paths": {
+      // "*": ["types/*"],
+			"src/*": ["src/*"]
+    }
+  },
+  "include": ["src/**/*", "tests/**/*.ts"],   // Incluye tanto código fuente como pruebas
+  "exclude": ["node_modules"]                    // Excluye todos los módulos externos
+}

@@ -1,0 +1,23 @@
+# docker-compose.base.yml
+services:
+  app:
+    build:
+      context: ../  # Cambiado al directorio raíz del proyecto
+      dockerfile: docker/Dockerfile
+    depends_on:
+      - db
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    command: npm run dev
+    volumes:
+      - ../src:/app/src
+      - ../package*.json:/app/package*.json
+      - ../tsconfig.json:/app/tsconfig.json
+
+  db:
+    image: postgres:14
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
