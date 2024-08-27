@@ -128,7 +128,7 @@ Miguel Arreaza
 Para preguntas o discusiones sobre este proyecto, no dudes en abrir un issue en este repositorio.
 
 ```
-my-microservices-project
+omnichordia
 ├── .dockerignore
 ├── .editorconfig
 ├── .env
@@ -140,11 +140,10 @@ my-microservices-project
 ├── .eslintrc.json
 ├── .github
 │   └── workflows
+│       └── ci.yml
 ├── .gitignore
 ├── .nvmrc
 ├── .prettierrc
-├── .vscode
-│   └── settings.json
 ├── Makefile
 ├── README.md
 ├── app
@@ -159,6 +158,7 @@ my-microservices-project
 │   ├── docker-compose.qa.yml
 │   └── docker-compose.staging.yml
 ├── jest.config.js
+├── package*.json
 ├── package-lock.json
 ├── package.json
 ├── scripts
@@ -205,6 +205,7 @@ my-microservices-project
 │   └── unit
 │       └── health-check.use-case.test.ts
 └── tsconfig.json
+
 
 
 
