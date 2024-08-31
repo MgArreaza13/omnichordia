@@ -179,12 +179,17 @@ omnichordia
 │   ├── index.ts
 │   ├── infrastructure
 │   │   ├── adapters
-│   │   │   └── TypeORMDataSource.ts
+│   │   │   └── typeorm
+│   │   │       └── TypeORMDataSource.ts
 │   │   ├── configuration
-│   │   │   └── ormconfig.ts
+│   │   │   └── typeorm
+│   │   │       └── ormconfig.ts
 │   │   ├── messaging
-│   │   └── persistence
-│   │       └── DatabaseConfig.ts
+│   │   ├── migrations
+│   │   ├── persistence
+│   │   │   └── typeorm
+│   │   │       └── DatabaseConfig.ts
+│   │   └── ports
 │   ├── interfaces
 │   │   ├── http
 │   │   │   └── health-check.controller.ts
@@ -206,6 +211,7 @@ omnichordia
 │   └── unit
 │       └── health-check.use-case.test.ts
 └── tsconfig.json
+
 
 
 
