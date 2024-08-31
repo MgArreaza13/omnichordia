@@ -16,8 +16,8 @@
 		"test:integration": "jest --testPathPattern=integration",
 		"test:e2e": "jest --testPathPattern=e2e",
 		"typeorm": "typeorm-ts-node-esm",
-		"migration:generate": "npm run typeorm -- migration:generate ./src/infrastructure/migrations/$npm_package_name-$ENTITY_NAME-$(date +%s) -d ./src/infrastructure/configuration/ormconfig.ts",
-		"migration:run": "npm run typeorm migration:run -- -d ./src/infrastructure/configuration/ormconfig.ts"
+		"migration:generate": "npm run typeorm -- migration:generate ./src/infrastructure/migrations/$npm_package_name-$ENTITY_NAME-$(date +%s) -d ./src/infrastructure/configuration/typeorm/ormconfig.ts",
+		"migration:run": "npm run typeorm migration:run -- -d ./src/infrastructure/configuration/typeorm/ormconfig.ts"
 	},
 	"author": "Miguel Arreaza",
 	"license": "MIT",
