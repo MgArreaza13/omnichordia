@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
-import { DatabaseConfig } from '../persistence/DatabaseConfig';
+import { DatabaseConfig } from '../../persistence/typeorm/DatabaseConfig';
 
 // Load environment variables from a .env file into process.env
 const result = dotenv.config();
@@ -51,12 +51,12 @@ const createTypeORMConfig = (): PostgresConnectionOptionsWithCli & DataSourceOpt
   password: process.env.DB_PASSWORD!,
   database: process.env.DB_NAME!,
   entities: [], // Add your entities here
-  migrations: [path.join(appRootPath.path, '../migrations/**/*.ts')],
+  migrations: [path.join(appRootPath.path, '../../migrations/**/*.ts')],
   migrationsTableName: 'migrations',
   synchronize: false,
   migrationsRun: false,
   cli: {
-    migrationsDir: path.join(appRootPath.path, '../migrations'),
+    migrationsDir: path.join(appRootPath.path, '../../migrations'),
   },
 });
 

@@ -1,7 +1,7 @@
 // src/infrastructure/adapters/TypeORMDataSource.ts
 import "reflect-metadata";
+import typeORMConfig from "../../../infrastructure/configuration/typeorm/ormconfig";
 import { DataSource } from "typeorm";
-import typeORMConfig from "../configuration/ormconfig";
 
 export class TypeORMDataSource {
   private dataSource: DataSource;

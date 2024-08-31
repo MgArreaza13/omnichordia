@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import { createApp } from './server/app';
 import { initializeEnvironment } from './server/environment';
 import { setupGracefulShutdown } from './server/graceful-shutdown';
-import { TypeORMDataSource } from './infrastructure/adapters/TypeORMDataSource';
+import { TypeORMDataSource } from './infrastructure/adapters/typeorm/TypeORMDataSource';
 
 // Cargar variables de entorno
 dotenv.config();

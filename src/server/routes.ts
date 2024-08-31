@@ -1,7 +1,7 @@
 import { Express, Request, Response } from 'express';
 import { HealthCheckDatabaseUseCase } from 'src/application/use-cases/health-check-database.use-case';
 import { HealthCheckUseCase } from 'src/application/use-cases/health-check.use-case';
-import { TypeORMDataSource } from 'src/infrastructure/adapters/TypeORMDataSource';
+import { TypeORMDataSource } from 'src/infrastructure/adapters/typeorm/TypeORMDataSource';
 import { HealthCheckController } from 'src/interfaces/http/health-check.controller';
 
 export const defineRoutes = (app: Express): void => {
