@@ -7,7 +7,7 @@ export class TypeORMDataSource {
   private dataSource: DataSource;
 
   constructor() {
-    this.dataSource = new DataSource(typeORMConfig);
+    this.dataSource = typeORMConfig;
   }
 
   async initialize(): Promise<DataSource> {

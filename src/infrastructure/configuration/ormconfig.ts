@@ -1,7 +1,9 @@
 // src/infrastructure/configuration/ormconfig.ts
-
-import { DataSourceOptions } from 'typeorm';
+import appRootPath from 'app-root-path';
 import dotenv from 'dotenv';
+import path from 'path';
+import { DataSource, DataSourceOptions } from 'typeorm';
+import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 import { DatabaseConfig } from '../persistence/DatabaseConfig';
 
 // Load environment variables from a .env file into process.env
@@ -9,40 +11,55 @@ const result = dotenv.config();
 
 // Check for parsing errors
 if (result.error) {
-	throw result.error;
+  throw result.error;
+}
+
+// Extend the PostgresConnectionOptions interface to include the cli property
+interface PostgresConnectionOptionsWithCli extends PostgresConnectionOptions {
+  cli?: {
+    migrationsDir?: string;
+  };
 }
 
 // Function to determine the current environment name
-const currentEnv = process.env.NODE_ENV || 'development';
+const getCurrentEnvironment = (): string => process.env.NODE_ENV || 'development';
 
 // Function to get the host based on the environment
-const determineHost = (): string =>
-	currentEnv === 'CI/CD' ? 'localhost' : process.env.DB_HOST || 'localhost';
+const getDatabaseHost = (): string =>
+  getCurrentEnvironment() === 'CI/CD' ? 'localhost' : process.env.DB_HOST || 'localhost';
 
 // Ensure critical environment variables are present
-const assertEnvironmentVariables = (): void => {
-	const requiredVars = ['DB_USER', 'DB_PASSWORD', 'DB_NAME'];
-	requiredVars.forEach((varName) => {
-		if (!process.env[varName]) {
-			throw new Error(`Environment variable '${varName}' is not defined`);
-		}
-	});
+const validateEnvironmentVariables = (): void => {
+  const requiredVars = ['DB_USER', 'DB_PASSWORD', 'DB_NAME'];
+  for (const varName of requiredVars) {
+    if (!process.env[varName]) {
+      throw new Error(`Environment variable '${varName}' is not defined`);
+    }
+  }
 };
 
 // Validate environment variables
-assertEnvironmentVariables();
+validateEnvironmentVariables();
 
-// TypeORM configuration object
-const typeORMConfig: DatabaseConfig & DataSourceOptions = {
-	type: 'postgres',
-	host: determineHost(),
-	port: Number(process.env.DB_PORT) || 5432,
-	username: process.env.DB_USER!,
-	password: process.env.DB_PASSWORD!,
-	database: process.env.DB_NAME!,
-	entities: [], // Add your entities here
-	synchronize: currentEnv !== 'production', // Disable in production
-	logging: currentEnv === 'development', // Enable in development
-};
 
-export default typeORMConfig;
+// Create the TypeORM configuration object
+const createTypeORMConfig = (): PostgresConnectionOptionsWithCli & DataSourceOptions => ({
+  type: 'postgres',
+  host: getDatabaseHost(),
+  port: Number(process.env.DB_PORT) || 5432,
+  username: process.env.DB_USER!,
+  password: process.env.DB_PASSWORD!,
+  database: process.env.DB_NAME!,
+  entities: [], // Add your entities here
+  migrations: [path.join(appRootPath.path, '../migrations/**/*.ts')],
+  migrationsTableName: 'migrations',
+  synchronize: false,
+  migrationsRun: false,
+  cli: {
+    migrationsDir: path.join(appRootPath.path, '../migrations'),
+  },
+});
+
+const typeORMConfig = new DataSource(createTypeORMConfig());
+
+export default typeORMConfig

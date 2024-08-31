@@ -12,6 +12,7 @@ services:
     env_file:
       - ../.env.local
     volumes:
+      - ../:/app
       - ../src:/app/src
       - ../package*.json:/app/package*.json
       - ../tsconfig.json:/app/tsconfig.json

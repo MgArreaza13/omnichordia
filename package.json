@@ -1,5 +1,5 @@
 {
-	"name": "my-microservice-project",
+	"name": "omnichordia",
 	"version": "1.0.0",
 	"description": "Microservice project using TypeScript, hexagonal architecture, and best practices.",
 	"type": "module",
@@ -14,11 +14,15 @@
 		"test": "jest",
 		"test:unit": "jest --testPathPattern=unit",
 		"test:integration": "jest --testPathPattern=integration",
-		"test:e2e": "jest --testPathPattern=e2e"
+		"test:e2e": "jest --testPathPattern=e2e",
+		"typeorm": "typeorm-ts-node-esm",
+		"migration:generate": "npm run typeorm -- migration:generate ./src/infrastructure/migrations/$npm_package_name-$ENTITY_NAME-$(date +%s) -d ./src/infrastructure/configuration/ormconfig.ts",
+		"migration:run": "npm run typeorm migration:run -- -d ./src/infrastructure/configuration/ormconfig.ts"
 	},
 	"author": "Miguel Arreaza",
 	"license": "MIT",
 	"dependencies": {
+		"app-root-path": "^3.1.0",
 		"dotenv": "^16.4.5",
 		"express": "^4.19.2",
 		"pg": "^8.12.0",
@@ -43,9 +47,9 @@
 		"jest-cucumber": "^4.5.0",
 		"prettier": "^3.3.3",
 		"supertest": "^7.0.0",
-		"tsx": "^3.8.0",
 		"ts-jest": "^29.2.4",
 		"ts-node-dev": "^2.0.0",
+		"tsx": "^3.8.0",
 		"typescript": "^5.5.4"
 	},
 	"browserslist": "> 0.5%, last 2 versions, Firefox ESR, not dead",

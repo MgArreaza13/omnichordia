@@ -10,6 +10,8 @@
     "resolveJsonModule": true,                   // Permite la importación de módulos JSON
     "baseUrl": "./",                             // Establece el baseUrl para módulos
     "outDir": "dist",                            // Directorio de salida de los archivos compilados
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
     "paths": {
       // "*": ["types/*"],
 			"src/*": ["src/*"]

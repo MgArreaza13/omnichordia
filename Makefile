@@ -6,7 +6,7 @@ COMPOSE_FILE = $(ROOT_DIR)docker/docker-compose.$(ENVIRONMENT).yml
 ENV_FILE = $(ROOT_DIR).env.$(ENVIRONMENT)
 
 # Ayuda sobre cada tarea disponible
-.PHONY: help dev local qa staging prod up down build test
+.PHONY: help dev local qa staging prod up down build test typeorm migration-generate migration-run
 
 define PRINT_HELP_PYSCRIPT
 import re, sys
@@ -57,21 +57,44 @@ build:
 	docker-compose --env-file $(ENV_FILE) -f $(COMPOSE_BASE) -f $(COMPOSE_FILE) build
 
 ## Run tests
+## Run tests
 test:
 	@echo "Running tests for environment $(ENVIRONMENT)"
 	# Aquí podrías agregar comandos para ejecutar tus pruebas unitarias, por ejemplo:
 	docker-compose --env-file $(ENV_FILE) -f $(COMPOSE_BASE) -f $(COMPOSE_FILE) run app npm test
 
+## Run TypeORM commands
+typeorm:
+	@echo "Running TypeORM command..."
+	docker-compose --env-file $(ENV_FILE) -f $(COMPOSE_BASE) -f $(COMPOSE_FILE) run app npm run typeorm $(filter-out $@,$(MAKECMDGOALS))
+
+## Generate a new migration
+migration-generate:
+	@echo "Generating a new migration..."
+	docker-compose --env-file $(ENV_FILE) -f $(COMPOSE_BASE) -f $(COMPOSE_FILE) run -e ENTITY_NAME="$(filter-out $@,$(MAKECMDGOALS))" app npm run migration:generate
+	@echo "Migration generated successfully."
+
+## Run migrations
+migration-run:
+	@echo "Running migrations..."
+	docker-compose --env-file $(ENV_FILE) -f $(COMPOSE_BASE) -f $(COMPOSE_FILE) run app npm run migration:run -- -d ./src/infrastructure/configuration/ormconfig.ts
 
 help:
 	@echo "Comandos disponibles:"
-	@echo "  dev        - Iniciar servicios para el entorno de desarrollo (dev)"
-	@echo "  local      - Iniciar servicios para el entorno local"
-	@echo "  qa         - Iniciar servicios para el entorno de calidad (QA)"
-	@echo "  staging    - Iniciar servicios para el entorno de staging"
-	@echo "  prod       - Iniciar servicios para el entorno de producción"
-	@echo "  up         - Iniciar servicios usando Docker Compose"
-	@echo "  down       - Detener y eliminar los servicios actuales"
-	@echo "  build      - Construir imágenes de Docker del entorno actual"
-	@echo "  test       - Ejecutar pruebas para el entorno actual"
-	@echo "  help       - Mostrar esta ayuda"
+	@echo "  dev               - Iniciar servicios para el entorno de desarrollo (dev)"
+	@echo "  local             - Iniciar servicios para el entorno local"
+	@echo "  qa                - Iniciar servicios para el entorno de calidad (QA)"
+	@echo "  staging           - Iniciar servicios para el entorno de staging"
+	@echo "  prod              - Iniciar servicios para el entorno de producción"
+	@echo "  up                - Iniciar servicios usando Docker Compose"
+	@echo "  down              - Detener y eliminar los servicios actuales"
+	@echo "  build             - Construir imágenes de Docker del entorno actual"
+	@echo "  test              - Ejecutar pruebas para el entorno actual"
+	@echo "  typeorm           - Ejecutar comandos de TypeORM"
+	@echo "  migration-generate - Generar una nueva migración (requiere el parámetro de la entidad, por ejemplo: make migration-generate User)"
+	@echo "  migration-run     - Ejecutar migraciones pendientes"
+	@echo "  help              - Mostrar esta ayuda"
+
+# Permite pasar argumentos adicionales a migration-generate
+%:
+	@:

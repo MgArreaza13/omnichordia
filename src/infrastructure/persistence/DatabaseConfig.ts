@@ -7,5 +7,8 @@ export interface DatabaseConfig {
 	database: string;
 	synchronize?: boolean;
 	logging?: boolean;
-	entities?: string[];
+	entities?: any[];
+	cli?: {
+		migrationsDir?: string;
+	};
 }
